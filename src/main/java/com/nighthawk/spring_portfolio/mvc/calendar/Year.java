@@ -83,6 +83,20 @@ class Year {
       return (("{ \"numerOfLeapYears\": " + this.numberOfLeapYears + " }"));
    }
 
+   // day of week getters and setters
+   public int getDayOfWeek(int day, int month, int year) {
+      return APCalendar.dayOfWeek(month, day, year);
+   }
+
+   public void setDayOfWeek(int day, int month, int year) {
+      this.dayOfYear = APCalendar.dayOfWeek(month, day, year);
+   }
+
+   // dayOfYearToString formatted to be mapped to JSON
+   public String dayOfWeekToString() {
+      return (("{ \"year\": " + this.year + ", " + "\"dayOfWeek\": " + this.dayOfYear + " }"));
+   }
+
    /* standard toString placeholder until class is extended */
    public String toString() {
       return isLeapYearToString();
