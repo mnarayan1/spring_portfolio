@@ -9,7 +9,7 @@ public class APCalendar {
      */
     public static boolean isLeapYear(int year) {
         // implementation not shown
-        if (year % 4 == 0 && year % 100 != 0) {
+        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
             return true;
         }
         return false;
