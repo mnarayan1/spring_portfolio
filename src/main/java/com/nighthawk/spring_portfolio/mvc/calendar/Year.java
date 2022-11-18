@@ -1,6 +1,7 @@
 package com.nighthawk.spring_portfolio.mvc.calendar;
 
-/** Simple POJO 
+/**
+ * Simple POJO
  * Used to Interface with APCalendar
  * The toString method(s) prepares object for JSON serialization
  * Note... this is NOT an entity, just an abstraction
@@ -8,14 +9,17 @@ package com.nighthawk.spring_portfolio.mvc.calendar;
 class Year {
    private int year;
    private boolean isLeapYear;
+   private int dayOfYear;
 
    // zero argument constructor
-   public Year() {} 
+   public Year() {
+   }
 
    /* year getter/setters */
    public int getYear() {
       return year;
    }
+
    public void setYear(int year) {
       this.year = year;
       this.setIsLeapYear(year);
@@ -25,18 +29,33 @@ class Year {
    public boolean getIsLeapYear(int year) {
       return APCalendar.isLeapYear(year);
    }
-   private void setIsLeapYear(int year) {  // this is private to avoid tampering
+
+   private void setIsLeapYear(int year) { // this is private to avoid tampering
       this.isLeapYear = APCalendar.isLeapYear(year);
    }
 
    /* isLeapYearToString formatted to be mapped to JSON */
-   public String isLeapYearToString(){
-      return ( "{ \"year\": "  +this.year+  ", " + "\"isLeapYear\": "  +this.isLeapYear+ " }" );
-   }	
+   public String isLeapYearToString() {
+      return ("{ \"year\": " + this.year + ", " + "\"isLeapYear\": " + this.isLeapYear + " }");
+   }
+
+   // day of year getters and setters
+   public int getDayOfYear(int day, int month, int year) {
+      return APCalendar.dayOfYear(month, day, year);
+   }
+
+   public void setDayOfYear(int day, int month, int year) {
+      this.dayOfYear = APCalendar.dayOfYear(month, day, year);
+   }
+
+   // dayOfYearToString formatted to be mapped to JSON
+   public String dayOfYearToString() {
+      return (("{ \"year\": " + this.year + ", " + "\"dayOfYear\": " + this.dayOfYear + " }"));
+   }
 
    /* standard toString placeholder until class is extended */
-   public String toString() { 
-      return isLeapYearToString(); 
+   public String toString() {
+      return isLeapYearToString();
    }
 
    public static void main(String[] args) {
