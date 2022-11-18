@@ -41,13 +41,13 @@ public class CalendarApiController {
     return ResponseEntity.ok(json); // JSON response, see ExceptionHandlerAdvice for throws
   }
 
-  @GetMapping("/dayOfYear/{day}/{month}/{year}")
+  @GetMapping("/dayOfYear/{month}/{day}/{year}")
   public ResponseEntity<JsonNode> getDayOfYear(@PathVariable int day, @PathVariable int month, @PathVariable int year)
       throws JsonMappingException, JsonProcessingException {
     // Backend Year Object
     Year year_obj = new Year();
     year_obj.setYear(year);
-    year_obj.setDayOfYear(day, month, year);
+    year_obj.setDayOfYear(month, day, year);
 
     // Turn Year Object into JSON
     ObjectMapper mapper = new ObjectMapper();
@@ -85,13 +85,13 @@ public class CalendarApiController {
     return ResponseEntity.ok(json); // JSON response, see ExceptionHandlerAdvice for throws
   }
 
-  @GetMapping("/dayOfWeek/{day}/{month}/{year}")
+  @GetMapping("/dayOfWeek/{month}/{day}/{year}")
   public ResponseEntity<JsonNode> getDayOfWeek(@PathVariable int day, @PathVariable int month, @PathVariable int year)
       throws JsonMappingException, JsonProcessingException {
     // Backend Year Object
     Year year_obj = new Year();
     year_obj.setYear(year);
-    year_obj.setDayOfWeek(day, month, year);
+    year_obj.setDayOfWeek(month, day, year);
 
     // Turn Year Object into JSON
     ObjectMapper mapper = new ObjectMapper();

@@ -70,24 +70,22 @@ public class APCalendar {
      * Precondition: The date represented by month, day, year is a valid date.
      */
     public static int dayOfWeek(int month, int day, int year) {
-        int[] monthKeys = { 1, 4, 4, 0, 2, 5, 0, 3, 6, 1, 4, 6 };
+
+        int yy = year % 100;
+        int yearCode = (yy + (yy / 4)) % 7;
+
+        int[] monthCodes = { 0, 3, 3, 6, 1, 4, 6, 2, 5, 0, 3, 5 };
+        int monthCode = monthCodes[month - 1];
+
+        int century = Integer.parseInt(Integer.toString(year).substring(0, 2));
+        int centuryCodes[] = { 4, 2, 0, 6, 4, 2, 0 };
+        int centuryCode = centuryCodes[century - 17];
+
+        int dayOfWeek = yearCode + monthCode + centuryCode + day;
         if (isLeapYear(year)) {
-            monthKeys[0] = 0;
-            monthKeys[1] = 3;
+            dayOfWeek--;
         }
-        int lastTwoDigits = year % 100;
-        int oneQuarterOfDigits = lastTwoDigits + ((lastTwoDigits / 4) - lastTwoDigits % 4);
-        int sum = lastTwoDigits + oneQuarterOfDigits + day + monthKeys[month - 1];
-        if (year >= 2000 && year <= 2099) {
-            sum -= 1;
-        }
-        if (year < 1900 && year > 1800) {
-            sum += 2;
-        }
-        if (year < 1800) {
-            sum += 4;
-        }
-        return sum % 7;
+        return dayOfWeek % 7;
     }
 
     /** Tester method */
