@@ -42,11 +42,11 @@ class Year {
    }
 
    // day of year getters and setters
-   public int getDayOfYear(int day, int month, int year) {
+   public int getDayOfYear(int month, int day, int year) {
       return APCalendar.dayOfYear(month, day, year);
    }
 
-   public void setDayOfYear(int day, int month, int year) {
+   public void setDayOfYear(int month, int day, int year) {
       this.dayOfYear = APCalendar.dayOfYear(month, day, year);
    }
 
@@ -84,11 +84,11 @@ class Year {
    }
 
    // day of week getters and setters
-   public int getDayOfWeek(int day, int month, int year) {
+   public int getDayOfWeek(int month, int day, int year) {
       return APCalendar.dayOfWeek(month, day, year);
    }
 
-   public void setDayOfWeek(int day, int month, int year) {
+   public void setDayOfWeek(int month, int day, int year) {
       this.dayOfYear = APCalendar.dayOfWeek(month, day, year);
    }
 
