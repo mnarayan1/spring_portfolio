@@ -22,7 +22,7 @@ public class APCalendar {
      * 6 denotes Saturday.
      * firstDayOfYear(2019) returns 2 for Tuesday.
      */
-    private static int firstDayOfYear(int year) {
+    public static int firstDayOfYear(int year) {
         return dayOfWeek(1, 1, year);
     }
 
