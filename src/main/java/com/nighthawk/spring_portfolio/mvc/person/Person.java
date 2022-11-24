@@ -57,6 +57,10 @@ public class Person {
     @NotEmpty
     private String password;
 
+    @NonNull
+    @Column(unique = true)
+    private Integer steps = 0;
+
     // @NonNull, etc placed in params of constructor: "@NonNull @Size(min = 2, max =
     // 30, message = "Name (2 to 30 chars)") String name"
     @NonNull
@@ -96,6 +100,22 @@ public class Person {
         return -1;
     }
 
+    public String emailToString() {
+        return (("{ \"email\": " + this.email + " }"));
+    }
+
+    public String passwordToString() {
+        return (("{ \"password\": " + this.password + " }"));
+    }
+
+    public String nameToString() {
+        return (("{ \"name\": " + this.name + " }"));
+    }
+
+    public String dobToString() {
+        return (("{ \"dob\": " + this.dob + " }"));
+    }
+
     public static void main(String[] args) {
         // test zero arg constructr
         Person zeroArg = new Person();
@@ -106,7 +126,13 @@ public class Person {
 
         // test properties of zero arg constructor
         System.out.println("age: " + zeroArg.getAge());
+        System.out.println("email: " + zeroArg.getEmail());
+        System.out.println("password: " + zeroArg.getPassword());
+        System.out.println("name: " + zeroArg.getName());
         // test properties of argument constructor
         System.out.println("age: " + personWithArgs.getAge());
+        System.out.println("email: " + personWithArgs.getEmail());
+        System.out.println("password: " + personWithArgs.getPassword());
+        System.out.println("name: " + personWithArgs.getName());
     }
 }
