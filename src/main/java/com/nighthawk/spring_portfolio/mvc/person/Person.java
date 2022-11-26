@@ -61,6 +61,14 @@ public class Person {
     @Column(unique = true)
     private Integer steps = 0;
 
+    @NonNull
+    @Column(unique = true)
+    private Integer averageSteps = 0;
+
+    @NonNull
+    @Column(unique = true)
+    private Integer days = 0;
+
     // @NonNull, etc placed in params of constructor: "@NonNull @Size(min = 2, max =
     // 30, message = "Name (2 to 30 chars)") String name"
     @NonNull

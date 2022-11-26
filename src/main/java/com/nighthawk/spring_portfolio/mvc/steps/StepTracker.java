@@ -27,6 +27,10 @@ public class StepTracker {
     private Integer steps = 0;
 
     @NonNull
+    @Column(unique = true)
+    private Integer averageSteps = 0;
+
+    @NonNull
     private Person person;
 
     @NonNull
@@ -36,16 +40,38 @@ public class StepTracker {
         this.person = person;
     }
 
+    // activeDays
     public int activeDays() {
-        for (String i : this.person.getStats().keySet()) {
-            this.days++;
-        }
-        System.out.println(days);
+        this.days += this.person.getStats().keySet().size();
         return this.days;
     }
 
     public String activeDaysToString() {
         return (("{ \"days\": " + this.days + " }"));
+    }
+
+    // total steps
+    public int steps() {
+        for (String i : this.person.getStats().keySet()) {
+            Map<String, Object> currentStats = (Map<String, Object>) this.person.getStats().get(i);
+            int statsSteps = (int) currentStats.get("steps");
+            this.steps += statsSteps;
+        }
+        return this.steps;
+    }
+
+    public String stepsToString() {
+        return (("{ \"steps\": " + this.steps + " }"));
+    }
+
+    // average steps
+    public int averageSteps() {
+        this.averageSteps = (int) (steps / days);
+        return this.averageSteps;
+    }
+
+    public String averageStepsToString() {
+        return (("{ \"averageSteps\": " + this.averageSteps + " }"));
     }
 
     public static void main(String[] args) {
@@ -59,5 +85,6 @@ public class StepTracker {
         StepTracker newStepTracker = new StepTracker(testPerson);
 
         newStepTracker.activeDays();
+        newStepTracker.steps();
     }
 }
