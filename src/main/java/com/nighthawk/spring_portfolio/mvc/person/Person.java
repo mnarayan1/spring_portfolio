@@ -1,6 +1,5 @@
 package com.nighthawk.spring_portfolio.mvc.person;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
@@ -69,6 +68,21 @@ public class Person {
     @Column(unique = true)
     private Integer days = 0;
 
+    // height in inches
+    @NonNull
+    @Column(unique = true)
+    private Integer height = 0;
+
+    // weight in kg
+    @NonNull
+    @Column(unique = true)
+    private Integer weight = 0;
+
+    // calories burned per day
+    @NonNull
+    @Column(unique = true)
+    private double caloriesBurnedPerDay = 0;
+
     // @NonNull, etc placed in params of constructor: "@NonNull @Size(min = 2, max =
     // 30, message = "Name (2 to 30 chars)") String name"
     @NonNull
@@ -92,10 +106,12 @@ public class Person {
     private Map<String, Map<String, Object>> stats = new HashMap<>();
 
     // Constructor used when building object from an API
-    public Person(String email, String password, String name, Date dob) {
+    public Person(String email, String password, String name, int height, int weight, Date dob) {
         this.email = email;
         this.password = password;
         this.name = name;
+        this.weight = weight;
+        this.height = height;
         this.dob = dob;
     }
 
@@ -130,7 +146,7 @@ public class Person {
 
         // test constructor with arguments
         Date date = new Date();
-        Person personWithArgs = new Person("test@test.com", "password", "args", date);
+        Person personWithArgs = new Person("test@test.com", "password", "args", 67, 54, date);
 
         // test properties of zero arg constructor
         System.out.println("age: " + zeroArg.getAge());
