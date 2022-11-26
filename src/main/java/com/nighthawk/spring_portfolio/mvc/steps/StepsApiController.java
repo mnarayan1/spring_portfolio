@@ -2,7 +2,6 @@ package com.nighthawk.spring_portfolio.mvc.steps;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +9,6 @@ import com.nighthawk.spring_portfolio.mvc.person.Person;
 import com.nighthawk.spring_portfolio.mvc.person.PersonJpaRepository;
 
 import java.util.*;
-import java.text.SimpleDateFormat;
 
 @RestController
 @RequestMapping("/api/steps")
@@ -33,7 +31,6 @@ public class StepsApiController {
         if (optional.isPresent()) { // Good ID
             Person person = optional.get(); // value from findByID
             StepTracker newTracker = new StepTracker(person);
-            newTracker.activeDays();
             return new ResponseEntity<>(newTracker.activeDaysToString(), HttpStatus.OK); // OK HTTP response: status
             // code, headers, and body
         }
@@ -47,7 +44,6 @@ public class StepsApiController {
         if (optional.isPresent()) { // Good ID
             Person person = optional.get(); // value from findByID
             StepTracker newTracker = new StepTracker(person);
-            newTracker.steps();
             return new ResponseEntity<>(newTracker.stepsToString(), HttpStatus.OK); // OK HTTP response: status
                                                                                     // code, headers, and body
         }
@@ -61,10 +57,21 @@ public class StepsApiController {
         if (optional.isPresent()) { // Good ID
             Person person = optional.get(); // value from findByID
             StepTracker newTracker = new StepTracker(person);
-            newTracker.steps();
-            newTracker.activeDays();
-            newTracker.averageSteps();
             return new ResponseEntity<>(newTracker.averageStepsToString(), HttpStatus.OK); // OK HTTP response: status
+            // code, headers, and body
+        }
+        // Bad ID
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/caloriesBurned/{id}")
+    public ResponseEntity<String> getCaloriesBurned(@PathVariable long id) {
+        Optional<Person> optional = repository.findById(id);
+        if (optional.isPresent()) { // Good ID
+            Person person = optional.get(); // value from findByID
+            StepTracker newTracker = new StepTracker(person);
+            newTracker.caloriesBurned();
+            return new ResponseEntity<>(newTracker.caloriesBurnedToString(), HttpStatus.OK); // OK HTTP response: status
             // code, headers, and body
         }
         // Bad ID
@@ -82,6 +89,7 @@ public class StepsApiController {
             person.setSteps(newTracker.steps());
             person.setDays(newTracker.activeDays());
             person.setAverageSteps(newTracker.averageSteps());
+            person.setCaloriesBurnedPerDay(newTracker.caloriesBurned());
             repository.save(person);
             return new ResponseEntity<>("Updated " + person.getName() + " successfully!", HttpStatus.OK); // OK HTTP
                                                                                                           // response:
