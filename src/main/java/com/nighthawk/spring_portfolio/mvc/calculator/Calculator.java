@@ -1,6 +1,7 @@
 package com.nighthawk.spring_portfolio.mvc.calculator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -19,6 +20,7 @@ public class Calculator {
     private ArrayList<String> tokens;
     private ArrayList<String> reverse_polish;
     private Double result = 0.0;
+    private String errors = "";
 
     // Helper definition for supported operators
     private final Map<String, Integer> OPERATORS = new HashMap<>();
@@ -45,15 +47,15 @@ public class Calculator {
     public Calculator(String expression) {
         // original input
         this.expression = expression;
-
-        // parse expression into terms
         this.termTokenizer();
 
-        // place terms into reverse polish notation
-        this.tokensToReversePolishNotation();
+        if (this.errors == "") {
+            // place terms into reverse polish notation
+            this.tokensToReversePolishNotation();
 
-        // calculate reverse polish notation
-        this.rpnToResult();
+            // calculate reverse polish notation
+            this.rpnToResult();
+        }
     }
 
     // Test if token is an operator
@@ -107,6 +109,12 @@ public class Calculator {
         if (multiCharTerm.length() > 0) {
             tokens.add(this.expression.substring(start));
         }
+
+        // unbalanced parentheses error
+        if (Collections.frequency(tokens, "(") != Collections.frequency(tokens, ")")) {
+            this.errors = "unbalanced parentheses, try again";
+        }
+
     }
 
     // Takes tokens and converts to Reverse Polish Notation (RPN), this is one where
@@ -210,10 +218,14 @@ public class Calculator {
 
     // Print the expression, terms, and result
     public String toString() {
-        return ("Original expression: " + this.expression + "\n" +
-                "Tokenized expression: " + this.tokens.toString() + "\n" +
-                "Reverse Polish Notation: " + this.reverse_polish.toString() + "\n" +
-                "Final result: " + String.format("%.2f", this.result));
+        if (this.errors != "") {
+            return "Error: " + this.errors;
+        } else {
+            return ("Original expression: " + this.expression + "\n" +
+                    "Tokenized expression: " + this.tokens.toString() + "\n" +
+                    "Reverse Polish Notation: " + this.reverse_polish.toString() + "\n" +
+                    "Final result: " + String.format("%.2f", this.result));
+        }
     }
 
     // Tester method
