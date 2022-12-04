@@ -24,6 +24,7 @@ public class Calculator {
     private final Map<String, Integer> OPERATORS = new HashMap<>();
     {
         // Map<"token", precedence>
+        OPERATORS.put("^", 2);
         OPERATORS.put("*", 3);
         OPERATORS.put("/", 3);
         OPERATORS.put("%", 3);
@@ -128,6 +129,7 @@ public class Calculator {
                     }
                     tokenStack.pop();
                     break;
+                case "^":
                 case "+":
                 case "-":
                 case "*":
@@ -172,6 +174,11 @@ public class Calculator {
                 // Calculate intermediate results
                 result = 0.0;
                 switch (token) {
+                    case "^":
+                        System.out.println(number1);
+                        System.out.println(number2);
+                        result = Math.pow(number1, number2);
+                        break;
                     case "+":
                         result = number1 + number2;
                         break;
@@ -212,6 +219,11 @@ public class Calculator {
     // Tester method
     public static void main(String[] args) {
         // Random set of test cases
+        Calculator powerMath = new Calculator("2 ^ (2 + 5 - 3)");
+        System.out.println("Power Math\n" + powerMath);
+
+        System.out.println();
+
         Calculator simpleMath = new Calculator("100 + 200  * 3");
         System.out.println("Simple Math\n" + simpleMath);
 
