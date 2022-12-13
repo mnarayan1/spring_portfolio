@@ -67,6 +67,12 @@ public class Light {
                 String.format("%02X", this.blue));
     }
 
+    public void setRGB(short red, short green, short blue) {
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
+    }
+
     /* toString output as key/values */
     public String toString() {
         return ("{" +

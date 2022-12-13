@@ -68,6 +68,12 @@ public class LightBoard {
         return outString;
     }
 
+    public void offLight(int row, int column) {
+        Light newLight = new Light();
+        newLight.setRGB((short) 0, (short) 0, (short) 0);
+        this.lights[row][column] = newLight;
+    }
+
     /* Output is intended for Terminal, draws color palette */
     public String toColorPalette() {
         // block sizes
@@ -122,6 +128,8 @@ public class LightBoard {
         LightBoard lightBoard = new LightBoard(5, 5);
         System.out.println(lightBoard); // use toString() method
         System.out.println(lightBoard.toTerminal());
+        System.out.println(lightBoard.toColorPalette());
+        lightBoard.offLight(0, 0);
         System.out.println(lightBoard.toColorPalette());
     }
 }
